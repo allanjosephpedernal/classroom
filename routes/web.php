@@ -18,6 +18,6 @@ Route::get('/', function () {
 });
 
 // resources
-Route::resource('student','StudentController');
-Route::resource('teacher','TeacherController');
-Route::resource('classes','ClassesController');
+Route::resource('student','StudentController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('teacher','TeacherController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('classes','ClassesController',['only'=>['index','store','show','update','destroy']]);
