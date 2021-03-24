@@ -2,11 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-// 
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\ClassesController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +18,8 @@ Route::get('/', function () {
 });
 
 // resources
-Route::resource('student',StudentController::class,['only'=>['index','store','show','update','destroy']]);
-Route::resource('teacher',TeacherController::class,['only'=>['index','store','show','update','destroy']]);
-Route::resource('classes',ClassesController::class,['only'=>['index','store','show','update','destroy']]);
+Route::resource('student','StudentController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('teacher','TeacherController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('subject','SubjectController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('classes','ClassesController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('enrollment','EnrollmentController',['only'=>['index','store','show','update','destroy']]);
