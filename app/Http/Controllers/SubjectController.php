@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classes;
+use App\Models\Subject;
 
-use App\Http\Requests\StoreClassesRequest;
-use App\Http\Requests\UpdateClassesRequest;
+use App\Http\Requests\StoreSubjectRequest;
+use App\Http\Requests\UpdateSubjectRequest;
 
-class ClassesController extends Controller
+class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        return view('classes');
+        return view('subject');
     }
 
     /**
@@ -25,23 +25,23 @@ class ClassesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreClassesRequest $request)
+    public function store(StoreSubjectRequest $request)
     {
         try
         {
             // extract all
             extract($request->all());
 
-            // store classes
-            $classes = new Classes;
-            $classes->teacher_id = $teacher_id;
-            $classes->subject_id = $subject_id;
-            $classes->save();
+            // store subject
+            $subject = new Subject;
+            $subject->name = $name;
+            $subject->description = $description;
+            $subject->save();
 
             // return response
             return \Response::json([
                 'success'=>true,
-                'message'=>'Class is successfully added!',
+                'message'=>'Subject is successfully added!',
                 'result'=>[]
             ],200);
         }
@@ -65,14 +65,14 @@ class ClassesController extends Controller
     {
         try
         {
-            // get classes
-            $classes = Classes::findOrFail($id);
+            // get subject
+            $subject = Subject::findOrFail($id);
 
             // return response
             return \Response::json([
                 'success'=>true,
                 'message'=>'Loaded result successfully!',
-                'result'=>$classes
+                'result'=>$subject
             ],200);
         }
         catch(\Exception $e)
@@ -92,24 +92,24 @@ class ClassesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateClassesRequest $request, $id)
+    public function update(UpdateSubjectTeacher $request, $id)
     {
         try
         {
             // extract all
             extract($request->all());
 
-            // update classes
-            $classes = Classes::findOrFail($id);
-            $classes->teacher_id = $teacher_id;
-            $classes->subject_id = $subject_id;
-            $classes->save();
+            // update subject
+            $subject = Subject::findOrFail($id);
+            $subject->name = $name;
+            $subject->description = $description;
+            $subject->save();
 
             // return response
             return \Response::json([
                 'success'=>true,
-                'message'=>'Class is successfully updated!',
-                'result'=>$classes
+                'message'=>'Subject is successfully updated!',
+                'result'=>$student
             ],200);
         }
         catch(\Exception $e)
@@ -132,13 +132,13 @@ class ClassesController extends Controller
     {
         try
         {
-            // find and delete classes
-            Classses::findOrFail($id)->delete();
+            // find and delete subject
+            Subject::findOrFail($id)->delete();
 
             // return response
             return \Response::json([
                 'success'=>true,
-                'message'=>'Class is successfully deleted!',
+                'message'=>'Subject is successfully deleted!',
                 'result'=>[]
             ],200);
         }

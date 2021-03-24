@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classes;
+use Illuminate\Http\Request;
 
-use App\Http\Requests\StoreClassesRequest;
-use App\Http\Requests\UpdateClassesRequest;
-
-class ClassesController extends Controller
+class EnrollmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +13,7 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        return view('classes');
+        return view('enrollment');
     }
 
     /**
@@ -25,23 +22,23 @@ class ClassesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreClassesRequest $request)
+    public function store(StoreEnrollmentRequest $request)
     {
         try
         {
             // extract all
             extract($request->all());
 
-            // store classes
-            $classes = new Classes;
-            $classes->teacher_id = $teacher_id;
-            $classes->subject_id = $subject_id;
-            $classes->save();
+            // store enrollment
+            $enrollment = new Enrollment;
+            $enrollment->classes_id = $classes_id;
+            $enrollment->student_id = $student_id;
+            $enrollment->save();
 
             // return response
             return \Response::json([
                 'success'=>true,
-                'message'=>'Class is successfully added!',
+                'message'=>'Enrollment is successfully added!',
                 'result'=>[]
             ],200);
         }
@@ -65,14 +62,14 @@ class ClassesController extends Controller
     {
         try
         {
-            // get classes
-            $classes = Classes::findOrFail($id);
+            // get enrollment
+            $enrollment = Enrollment::findOrFail($id);
 
             // return response
             return \Response::json([
                 'success'=>true,
                 'message'=>'Loaded result successfully!',
-                'result'=>$classes
+                'result'=>$enrollment
             ],200);
         }
         catch(\Exception $e)
@@ -92,24 +89,24 @@ class ClassesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateClassesRequest $request, $id)
+    public function update(UpdateEnrollmentRequest $request, $id)
     {
         try
         {
             // extract all
             extract($request->all());
 
-            // update classes
-            $classes = Classes::findOrFail($id);
-            $classes->teacher_id = $teacher_id;
-            $classes->subject_id = $subject_id;
-            $classes->save();
+            // update enrollment
+            $enrollment = Enrollment::findOrFail($id);
+            $enrollment->classes_id = $classes_id;
+            $enrollment->student_id = $student_id;
+            $enrollment->save();
 
             // return response
             return \Response::json([
                 'success'=>true,
-                'message'=>'Class is successfully updated!',
-                'result'=>$classes
+                'message'=>'Enrollment is successfully updated!',
+                'result'=>$student
             ],200);
         }
         catch(\Exception $e)
@@ -132,13 +129,13 @@ class ClassesController extends Controller
     {
         try
         {
-            // find and delete classes
-            Classses::findOrFail($id)->delete();
+            // find and delete enrollment
+            Enrollment::findOrFail($id)->delete();
 
             // return response
             return \Response::json([
                 'success'=>true,
-                'message'=>'Class is successfully deleted!',
+                'message'=>'Enrollment is successfully deleted!',
                 'result'=>[]
             ],200);
         }
