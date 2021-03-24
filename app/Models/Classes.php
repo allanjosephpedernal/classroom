@@ -6,13 +6,13 @@ use App\Models\BaseModel;
 
 class Classes extends BaseModel
 {
-    public function student()
-    {
-        return $this->belongsTo('App\Models\Student');
-    }
-
     public function teacher()
     {
         return $this->belongsTo('App\Models\Teacher');
+    }
+
+    public function subject()
+    {
+        return $this->hasMany('App\Models\Subject');
     }
 }

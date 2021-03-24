@@ -6,8 +6,8 @@ use App\Models\BaseModel;
 
 class Student extends BaseModel
 {
-    public function classes()
+    public function enrollment()
     {
-        return $this->hasMany('App\Models\Classes');
+        return $this->hasMany('App\Models\Enrollment');
     }
 }
