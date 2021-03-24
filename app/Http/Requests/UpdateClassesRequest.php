@@ -24,8 +24,8 @@ class UpdateClassesRequest extends FormRequest
     public function rules()
     {
         return [
-            'student_id' => 'required|int',
-            'teacher_id' => 'required|int'
+            'teacher_id' => 'required|int',
+            'subject_id' => 'required|int'
         ];
     }
 }
